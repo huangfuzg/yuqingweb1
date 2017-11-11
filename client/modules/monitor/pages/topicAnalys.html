@@ -1,0 +1,314 @@
+<style>
+    .dc-chart .pie-slice {
+        fill : black;
+        font-size: 13px;
+    }
+    .dc-chart g.row text {
+        fill : black;
+        font-size: 13px;
+    }
+   .dia_warning{
+         color: #f59c1a;
+     }
+
+    .ngdialog.ngdialog-theme-enginesetting {
+        padding: 5% !important;
+    }
+
+    .ngdialog.ngdialog-theme-enginesetting .ngdialog-content {
+        width: 80% !important;
+        /*margin: 20px;*/
+    }
+    .loading{
+        width:100%;
+        height:100%;
+        text-align: center;
+        position: relative;
+    }
+    .loading img{
+        position: absolute;
+        top: 48%;
+    }
+    svg .tick text{
+        font-size: 1.0em;
+    }
+    @import url(https://fonts.googleapis.com/css?family=Lato:100,300,700);
+    h2 {
+      font-family: 'Lato';
+      color: black;
+      text-transform: uppercase;
+      font-size: 2em;
+      letter-spacing: 1.5px;
+      text-align: center;
+      margin-top: 20px;
+      -webkit-animation: fade 2s infinite;
+      -moz-animation: fade 2s infinite;
+    }
+
+    .container {
+      position: absolute;
+      top: 50%;
+      left: 40%;
+      margin-left: 10%;
+      transform: translate3d(-50%, -50%, 0);
+    }
+
+    @-webkit-keyframes rise {
+      50% {
+        transform: rotate(30deg);
+        -ms-transform: rotate(30deg);
+        /* IE 9 */
+        -webkit-transform: rotate(30deg);
+        -moz-transform: rotate(30deg);
+      }
+    }
+    @-moz-keyframes rise {
+      50% {
+        transform: rotate(30deg);
+        -ms-transform: rotate(30deg);
+        /* IE 9 */
+        -webkit-transform: rotate(30deg);
+        -moz-transform: rotate(30deg);
+      }
+    }
+    @-o-keyframes rise {
+      50% {
+        transform: rotate(30deg);
+        -ms-transform: rotate(30deg);
+        /* IE 9 */
+        -webkit-transform: rotate(30deg);
+        -moz-transform: rotate(30deg);
+      }
+      @keyframes rise {
+        50% {
+          transform: rotate(30deg);
+          -ms-transform: rotate(30deg);
+          /* IE 9 */
+          -webkit-transform: rotate(30deg);
+          -moz-transform: rotate(30deg);
+        }
+      }
+    }
+    @-webkit-keyframes fall {
+      50% {
+        transform: rotate(-30deg);
+        -ms-transform: rotate(-30deg);
+        /* IE 9 */
+        -webkit-transform: rotate(-30deg);
+        -moz-transform: rotate(30deg);
+      }
+    }
+    @-moz-keyframes fall {
+      50% {
+        transform: rotate(-30deg);
+        -ms-transform: rotate(-30deg);
+        /* IE 9 */
+        -webkit-transform: rotate(-30deg);
+        -moz-transform: rotate(-30deg);
+      }
+    }
+    @-o-keyframes fall {
+      50% {
+        transform: rotate(-30deg);
+        -ms-transform: rotate(-30deg);
+        /* IE 9 */
+        -webkit-transform: rotate(-30deg);
+        -moz-transform: rotate(30deg);
+      }
+      @keyframes fall {
+        50% {
+          transform: rotate(-30deg);
+          -ms-transform: rotate(-30deg);
+          /* IE 9 */
+          -webkit-transform: rotate(-30deg);
+          -moz-transform: rotate(30deg);
+        }
+      }
+    }
+    @-webkit-keyframes fade {
+      50% {
+        opacity: 0.5;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+    @-moz-keyframes fade {
+      50% {
+        opacity: 0.5;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+    @-o-keyframes fade {
+      50% {
+        opacity: 0.5;
+      }
+      100% {
+        opacity: 1;
+      }
+      @keyframes fade {
+        50% {
+          opacity: 0.5;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+    }
+</style>
+<!--<div class="panel panel-primary" data-sortable-id="ui-buttons-3">-->
+<div id="content" class="content" ng-resize="">
+    <ol class="breadcrumb pull-right p-r-2" ng-show = "backTopic">
+        <li class = "fa fa-arrow-circle-left"><a href="javascript:;" ng-click="back()" >返回</a></li>
+    </ol>
+    <h1 class="page-header m-b-10"> {{topicName}} </h1>
+    <!--<div class="panel-body">-->
+    <!--<h1 class="page-header m-b-10"> {{topicName}} </h1>-->
+    <div class = "width-full">
+        <!-- begin col-4 -->
+        <div class="col-md-6 animated fadeInLeft p-l-0">
+            <div class="panel panel-primary" data-sortable-id="index-1">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:dc.filterAll(); dc.renderAll();" class="btn btn-xs btn-icon btn-circle btn-success" ><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                    </div>
+                    <h4 class="panel-title f-s-16">
+                        <!--<img src = "/static/assets/img/datasource.svg" class = "fa">-->
+                        <i class="fa fa-file-photo-o"></i>
+                        相关图片</h4>
+                </div>
+                <div class="panel-body">
+                    <!--<div class='col-md-12'>-->
+                        <div class="height-sm">
+                            <div class="loading text-center">
+                                <img src="/static/assets/icon/loading.gif" style="width: 30px"/>
+                            </div>
+                            <carousel interval=5000 class="" style="height: 100%">
+                                <slide ng-repeat="slide in imgs" >
+                                    <img ng-src="{{slide}}" class = "height-sm width-full">
+                                </slide>
+                            </carousel>
+                        </div>
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 animated fadeInLeft p-l-0">
+            <div class="panel panel-primary" data-sortable-id="index-1">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:dc.filterAll(); dc.renderAll();" class="btn btn-xs btn-icon btn-circle btn-success" ><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                    </div>
+                    <h4 class="panel-title f-s-16">
+                        <!--<img src = "/static/assets/img/datasource.svg" class = "fa">-->
+                        <i class="fa fa-cloud"></i>
+                        词频图</h4>
+                </div>
+                <div class="panel-body">
+                    <div id = "wordsCloud_{{topic_id}}" class = "width-full height-sm">
+                        <div class="loading text-center">
+                            <img src="/static/assets/icon/loading.gif" style="width: 30px"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 animated fadeInLeft p-l-0">
+            <div class="panel panel-primary" data-sortable-id="index-1">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:dc.filterAll(); dc.renderAll();" class="btn btn-xs btn-icon btn-circle btn-success" ><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                    </div>
+                    <h4 class="panel-title f-s-16">
+                    <img src = "/static/assets/img/datasource.svg" class = "fa">
+                    数据源分布</h4>
+                </div>
+                <div class="panel-body">
+                    <div id="datatypeDist" class="height-sm width-full" ng-dblclick="selectGraphPost()">
+                        <div class="loading text-center">
+                            <img src="/static/assets/icon/loading.gif" style="width: 30px"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <!-- begin col-4 -->
+        <div class="col-md-6 animated fadeInRight p-l-0">
+            <div class="panel panel-primary" data-sortable-id="index-1">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:dc.filterAll(); dc.renderAll();" class="btn btn-xs btn-icon btn-circle btn-success"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                    </div>
+                    <h4 class="panel-title f-s-16">
+                    <img src = "/static/assets/img/rowchart.svg" class = "fa">
+                    具体站点分布</h4>
+                </div>
+                <div class="panel-body">
+                    <div id="siteDist" class="height-sm width-full" ng-dblclick="selectGraphPost()">
+                        <div class="loading text-center" style="height: 100%;width: 100%;margin:auto;">
+                            <img src="/static/assets/icon/loading.gif" style="width: 30px"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <!-- begin col-4 -->
+        <div class="col-md-12 animated fadeInLeft p-l-0">
+            <div class="panel panel-primary" data-sortable-id="index-1">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:dc.filterAll(); dc.renderAll();" class="btn btn-xs btn-icon btn-circle btn-success"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                    </div>
+                    <h4 class="panel-title f-s-16">
+                    <i class = "fa fa-bar-chart-o"></i>
+                    时间分布</h4>
+                </div>
+                <div class="panel-body">
+                    <div id="dayDist1" class="height-sm width-full">
+                        <div class="loading text-center" style="height: 100%;width: 100%;margin:auto;">
+                            <img src="/static/assets/icon/loading.gif" style="width: 30px"/>
+                        </div>
+                    </div>
+                    <div id="dayDist2" class="width-full">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 animated fadeInLeft p-l-0">
+            <div class="panel panel-primary" data-sortable-id="index-1">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <!--<a href="javascript:dc.filterAll(); dc.renderAll();" class="btn btn-xs btn-icon btn-circle btn-success"><i class="fa fa-repeat"></i></a>-->
+                        <!--<a href="javascript;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>-->
+                        <!--<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>-->
+                    </div>
+                    <h4 class="panel-title f-s-16">
+                        <i class = "fa fa-bar-chart-o"></i>
+                        话题演化</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="loading text-center" style="height: 100%;width: 100%;margin:auto;">
+                        <img src="/static/assets/icon/loading.gif" style="width: 30px"/>
+                    </div>
+                    <div id="senTopicEvolu" class="height-sm width-full">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--</div>-->
+
+</div>

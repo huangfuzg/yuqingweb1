@@ -1,0 +1,106 @@
+<style>
+    .ngdialog.ngdialog-theme-table
+    {
+        padding: 5% !important;
+    }
+    .ngdialog.ngdialog-theme-table .ngdialog-content
+    {
+        width: 1000px !important;
+    }
+    .fa-remove
+    {
+        margin-top: 5px; 
+        color: #ccc;
+        float: right;
+    }
+    .fa-remove:hover
+    {
+        color: #999;
+        float: right;
+    }
+    .cell-input
+    {
+        display: inline-block;
+        border: none;
+        width: 80%;
+        height: 100%;
+        vertical-align: text-bottom;
+        padding: 3px;
+        background: inherit;
+    }
+    .cell-input:focus
+    {
+        outline: none;
+    }
+</style>
+
+<div style="width: 100%">
+    <!-- begin row -->
+    <div class="row">
+        <!-- begin col-12 -->
+        <div class="col-md-12">
+            <!-- begin panel -->
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title">表格导出设计</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <div class="form-inline" style="margin-bottom: 10px">
+                            <label style=>show</label>
+                            <select class="form-control" ng-change="changeTable(x)" ng-model="x">
+                                <option value="0">当前页面</option>
+                                <option value="1">近一天</option>
+                                <option value="2">近一周</option>
+                                <option value="3">近一月</option>
+                                <option value="-1">全部</option>
+                            </select>
+                        </div>
+                        <table id="data-table" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="width:10px;">
+                                        <input type="checkbox" value="true" ng-model="allRows" ng-click="exportAll()">
+                                    </th>
+                                    <th ng-if="showCols[4]"><input type="text" value="敏感词" class="cell-input" ng-model="theads[4]"><i class="fa fa-times-circle fa-remove" title="删除此列" ng-click="removeCol(4)"></i></th>
+                                    <th ng-if="showCols[0]"><input type="text" value="标题" class="cell-input" ng-model="theads[0]"><i class="fa fa-times-circle fa-remove" title="删除此列" ng-click="removeCol(0)"></i></th>
+                                    <th ng-if="showCols[1]"><input type="text" value="发布时间" class="cell-input" ng-model="theads[1]"><i class="fa fa-times-circle fa-remove" title="删除此列" ng-click="removeCol(1)"></i></th>
+                                    <th ng-if="showCols[2]"><input type="text" value="添加时间" class="cell-input" ng-model="theads[2]"><i class="fa fa-times-circle fa-remove" title="删除此列" ng-click="removeCol(2)"></i></th>
+                                    <th ng-if="showCols[3]"><input type="text" value="状态" class="cell-input" ng-model="theads[3]"><i class="fa fa-times-circle fa-remove" title="删除此列" ng-click="removeCol(3)"></i></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="odd gradeX" ng-repeat="item in showTableData">
+                                    <td style="width:10px;"><input type="checkbox" ng-model="item.export"></td>
+                                    <td ng-if="showCols[4]">{{item.senwords.join('')}}</td>
+                                    <td ng-if="showCols[0]">{{item.title}}</td>
+                                    <td ng-if="showCols[1]">{{item.pt_time}}</td>
+                                    <td ng-if="showCols[2]">{{item.add_time}}</td>
+                                    <td ng-if="showCols[3]">{{item.is_report}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="btn-group pull-right" id="data-table_paginate">
+                            <button type="button" class="btn btn-white" ng-click="getTableData(tablepage-1)" ng-class="{disabled:tablepage<=1}">上一页</button>
+                            <button type="button" class="btn btn-white {{isActiveTablePage(index)}}" ng-repeat="index in pageset"  ng-click="getTableData(index)">
+                                {{index}}
+                            </button>
+                            <button type="button" class="btn btn-white" ng-click="getTableData(tablepage+1)" ng-class="{disabled:tablepage>=max_page}">下一页</button>
+                            <!--<ul class="pagination ">-->
+                                <!--<li class="btn btn-primary previous" id="data-table_previous" ng-click="getTableData(tablepage-1)" ng-class="{disabled:tablepage<=1}"><a href="javascript:void">Previous</a></li>-->
+                                <!--<li class="btn btn-primary" ng-repeat="index in pageset" ng-class="{active:tablepage==index}" ng-click="getTableData(index)"><a href="javascript:void">{{index}}</a></li>-->
+                                <!--<li class="btn btn-primary next" id="data-table_next" ng-click="getTableData(tablepage+1)" ng-class="{disabled:tablepage>=max_page}"><a href="javascript:void">Next</a></li>-->
+                            <!--</ul>-->
+                            <span class="btn btn-primary pull-right" ng-click="exportExcel()">导出</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end panel -->
+        </div>
+        <!-- end col-12 -->
+    </div>
+    <!-- end row -->
+</div>
+<!-- end #content -->
