@@ -78,29 +78,21 @@ CQ.mainApp.topicController
                 var doms = "wordsCloud_" + d.topicId;
                 if(document.getElementById(doms) != undefined) {
                     //console.log("aaa");
+                var color = d3.scale.category10();
+                var i = 0;
                 var chart = echarts.init(document.getElementById(doms));
                 var options = {
                     series: [{
                         type: 'wordCloud',
-                        gridSize: 12,
-                        sizeRange: [12, 40],
-                        rotationRange: [0, 0],
+                        gridSize: 1,
+                        sizeRange: [5, 35],
+                        rotationRange: [0, 45],
                         shape: 'circle',
                         textStyle: {
                             normal: {
-                                color: function() {
-                                    return 'rgb(' + [
-                                        Math.round(Math.random() * 160),
-                                        Math.round(Math.random() * 160),
-                                        Math.round(Math.random() * 160)
-                                    ].join(',') + ')';
+                                color: function(){return color(i++)},
                                 }
                             },
-                            emphasis: {
-                                shadowBlur: 10,
-                                shadowColor: '#333'
-                            }
-                        },
                         data: []
                     }]
                 };
@@ -126,8 +118,11 @@ CQ.mainApp.topicController
         {
             $state.go("yuqingTrendsController",{"topicIds":[topicId]});
         }
-        $scope.openModal = function(topicId){
-            $state.go("topicAnalysController", {topicId: topicId});
+        $scope.openTopicModal = function(){
+            $state.go("senTopicAnalysController");
+        };
+        $scope.openUserModal = function(){
+            $state.go("senuserAnalysController");
         };
 
     }])
@@ -151,9 +146,6 @@ CQ.mainApp.topicController
                 });
             }
         });
-        $scope.openModal = function(){
-            $state.go("topicController");
-        };
         function getTopicAnalysData() {
             var cons = {};
             cons.userId = 1;
@@ -514,4 +506,16 @@ CQ.mainApp.topicController
                     }
                 });
             }
+    }])
+    .controller("senuserAnalysController", ["$rootScope", "$scope", "$http", "$stateParams", "TopicFacService", "SearchFacService", "$state", "$timeout",
+        function($rootScope, $scope, $http, $stateParams, TopicFacService, SearchFacService, $state, $timeout) {
+        console.log("topicAnalys", "start!!!");
+        $scope.$on('$viewContentLoaded', function() {
+            if($rootScope.mainController) {
+                App.runui();
+                $timeout(function(){
+                    $(".height-full").height($(window).height()-100);
+                },100);
+            }
+        });
     }]);

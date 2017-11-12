@@ -13,16 +13,16 @@ angular.module('settingservice',[])
         ];
         var topicLists = [
             {
-                label: "敏感话题",
-                link: "#/senTopic", 
-                hasShow: true,
+                label: "热点话题",
+                link: "#/hotTopic", 
+                hasShow:true,
                 icon:"",
                 items: ""
             },
             {
-                label: "热点话题",
-                link: "#/hotTopic", 
-                hasShow:true,
+                label: "敏感话题",
+                link: "#/senTopic", 
+                hasShow: true,
                 icon:"",
                 items: ""
             }
@@ -406,7 +406,7 @@ angular.module('settingservice',[])
                 link: "#/hotTopic",
                 hasShow: true,
                 icon: "fa fa-bar-chart-o",
-                items: ""
+                items: topicLists
             },
             {
                 label:"实时监控",

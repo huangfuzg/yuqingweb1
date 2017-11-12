@@ -8,7 +8,7 @@ CQ.mainApp.topicController
                 controller: "senTopicController"
             })
             .state("senTopicAnalysController", {
-                url:"/senTopic/:topicId",
+                url:"/senTopic/topicanalys:topicId",
                 templateUrl: "/static/modules/topic/pages/topicAnalys.html",
                 controller: "senTopicAnalysController"
             })
@@ -21,5 +21,10 @@ CQ.mainApp.topicController
                 url:"/hotTopic/:topicId",
                 templateUrl: "/static/modules/topic/pages/topicAnalys.html",
                 controller: "hotTopicAnalysController"
+            })
+            .state("senuserAnalysController", {
+                url:"/senTopic/useranalys/:topicId",
+                templateUrl: "/static/modules/topic/pages/senuserAnalys.html",
+                controller: "senuserAnalysController"
             });
     }]);
