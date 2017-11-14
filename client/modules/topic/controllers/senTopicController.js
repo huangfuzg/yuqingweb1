@@ -50,24 +50,43 @@ CQ.mainApp.topicController
                     // {
                     //     console.log(err);
                     // }
-                    if(d.topicId == 2) {
-                        d.imgs = imgs9;
-                    }else if(d.topicId == 1) {
-                        d.imgs = imgs4;
-                        // d.summary = "各大高校研究生复试工作正在进行，大多数高校已经录取结束";
-                    }else if(d.topicId == 0) {
-                        d.imgs = imgs2;
-                    }else if(d.topicId == 3) {
-                        d.imgs = imgs12;
-                    }else if(d.topicId == 9) {
-                        d.imgs = imgs99;
-                    }else if(d.topicId == 8) {
-                        d.imgs = imgs8;
-                    }else if(d.topicId > 4) {
-                        // d.summary = "各个地方成人高考报名工作开始";
-                        d.imgs = imgs2;
-                    }
+                    // if(d.topicId == 2) {
+                    //     d.imgs = imgs9;
+                    // }else if(d.topicId == 1) {
+                    //     d.imgs = imgs4;
+                    //     // d.summary = "各大高校研究生复试工作正在进行，大多数高校已经录取结束";
+                    // }else if(d.topicId == 0) {
+                    //     d.imgs = imgs2;
+                    // }else if(d.topicId == 3) {
+                    //     d.imgs = imgs12;
+                    // }else if(d.topicId == 9) {
+                    //     d.imgs = imgs99;
+                    // }else if(d.topicId == 8) {
+                    //     d.imgs = imgs8;
+                    // }else if(d.topicId > 4) {
+                    //     // d.summary = "各个地方成人高考报名工作开始";
+                    //     d.imgs = imgs2;
+                    // }
                     //d.imgs = imgs;
+                    var imgs = [];
+                    console.log(d);
+                    d.imgs.forEach(url=>{
+                        var image = new Image();
+                        image.src = url;
+                        if(image.complete)
+                        {
+                            imgs.push(image.src);
+                        }
+                        image.onload = function()
+                        {
+                            imgs.push(image.src);
+                        }
+                        image.onerror = function()
+                        {
+                            
+                        }
+                    });
+                    d.imgs = imgs;
                 });
                 var topicWeight={"十九大":100,"高考":90,"成考":80,"作弊":70};
                 res.sort(function(a,b){
@@ -239,12 +258,13 @@ CQ.mainApp.topicController
                  pages=~~(posts.length/page_num)+1;
                  $scope.sendata=posts.slice(0,page_num);
                  $scope.sendata.forEach(function (t) {
-                     var img = new Image();
-                     img.src = t.poster.img_url;
-                     img.onerror = function () {
-                         t.poster.img_url = '/static/assets/icon/twitter.svg';
-                         $scope.$digest();
-                     }
+                    t.poster.img_url = '/static/assets/icon/twitter.svg';
+                     // var img = new Image();
+                     // img.src = t.poster.img_url;
+                     // img.onerror = function () {
+                     //     t.poster.img_url = '/static/assets/icon/twitter.svg';
+                     //     $scope.$digest();
+                     // }
                  })
                  $timeout(function(){
                      $("#loading").hide();
@@ -258,6 +278,15 @@ CQ.mainApp.topicController
                                  $("#loading").show();
                                  $timeout(function(){
                                      $scope.sendata=posts.slice(0,(++page)*page_num);
+                                     $scope.sendata.forEach(function (t) {
+                                         t.poster.img_url = '/static/assets/icon/twitter.svg';
+                                         // var img = new Image();
+                                         // img.src = t.poster.img_url;
+                                         // img.onerror = function () {
+                                         //     t.poster.img_url = '/static/assets/icon/twitter.svg';
+                                         //     $scope.$digest();
+                                         // }
+                                     });
                                      $("#loading").hide();
                                  },1000);
                              }
@@ -473,7 +502,7 @@ CQ.mainApp.topicController
                 // $(".posts").parent(".slimScrollDiv").css({"height":Math.min(max_posts_height,$(".posts").height())});
                 $(".before").hide();
                 if(ev)
-                    var before = $(ev.target).find(".before");
+                    var before = $(ev.currentTarget).find(".before");
                 else
                     before = $("#userlist > ul > li:nth-child(1) > div > div");
                 before.show();
@@ -520,6 +549,7 @@ CQ.mainApp.topicController
             TopicFacService.getTopicUserAnalyData({topicId:$scope.topicId}).then(function(res){
                 console.log(res);
                 res.forEach(user=>{
+                    user.poster.img_url = '/static/assets/icon/twitter.svg';
                     user.posts.forEach(post=>{
                         post.user_name = user.poster.name;
                         post.post_img = user.poster.img_url;
