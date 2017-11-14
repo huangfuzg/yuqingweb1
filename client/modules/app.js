@@ -18,6 +18,7 @@ angular.module('mainApp', [
     "ui.bootstrap",
     "ngDraggable",
     "ngDialog",
+    'ngScrollbar',
     "frame.controller",
     "frame.services",
     "dashboard.Controller",

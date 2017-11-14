@@ -8,8 +8,8 @@ CQ.mainApp.topicController
                 controller: "senTopicController"
             })
             .state("senTopicAnalysController", {
-                url:"/senTopic/topicanalys:topicId",
-                templateUrl: "/static/modules/topic/pages/topicAnalys.html",
+                url:"/senTopic/topicanalys/:topicId",
+                templateUrl: "/static/modules/topic/pages/senTopicAnalys.html",
                 controller: "senTopicAnalysController"
             })
             .state("HotTopicController", {

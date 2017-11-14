@@ -1,0 +1,81 @@
+<style>
+    .text-muted a{
+        color: rgba(100,100,100,0.8);
+        font-size: 1.0em;
+        padding: 0 2px;
+    }
+</style>
+<div id="content" class="content" ng-resize="">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title"><i class="fa fa-bar-chart-o"></i> 事件发展趋势</div>
+                </div>
+                <div class="panel-body" style="height: 400px;">
+                    <div id="dayChart" style="width: 100%;height: 100%">
+                        <div id="loading1" class="text-center">
+                            <img src="/static/assets/icon/loading.gif" style="width: 30px"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title"><img src="/static/assets/img/datasource.svg" class="fa"> 语种分布</div>
+                </div>
+                <div class="panel-body" style="height: 400px;">
+                    <div id="siteChart" style="width: 100%;height: 100%">
+                        <div id="loading2" class="text-center">
+                            <img src="/static/assets/icon/loading.gif" style="width: 30px"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title">相关帖子</div>
+                </div>
+                <!-- <div class="panel-toolbar">
+                </div> -->
+                <div class="panel-body">
+                    <div id="posts" class="" data-scrollbar="true" style="height: 830px">
+                        <ul class="media-list media-list-with-divider media-messaging">
+                            <li class="media media-sm" ng-repeat="post in sendata" ng-mouseenter="showTrans(post)" ng-mouseleave="hideTrans(post)">
+                                <a href="javascript:;" class="pull-left text-center">
+                                    <img src="{{post.poster.img_url}}" alt="" class="media-object rounded-corner" ng-if="post.poster.img_url&&post.poster.img_url!=' '"/>
+
+
+                                </a>
+                                <a href="{{post.url}}" class="media-body" style="color: inherit;">
+                                    <h5 class="media-heading" ng-if="post.poster">{{post.poster.name}}</h5>
+                                    <h5 class="media-heading" ng-if="post.topic_poster_name">{{post.topic_poster_name}}</h5>
+                                    <p>{{post.content}}</p>
+                                    <p style="border-style: solid;border-color:black" ng-if="post.is_trans&&post.transText">{{post.transText}}</p>
+                                    <p style="border-style: solid;border-color:black" ng-if="post.is_trans&&!post.transText">没有翻译</p>
+                                    <p ng-if="post.content==' '">{{post.poster['name']}}</p>
+                                    <p class="text-center" style="width: 100%"><img src={{post.img_url}} alt="" ng-if="post.img_url!=' '" style="margin: auto; min-width: 40%" />
+                                    </p>
+                                    <p class="text-center" style="width: 100%">
+                                        <video src="{{post.video_url}}" controls="controls" ng-if="post.video&&post.video_url!=' '">
+                                            您的浏览器不支持 video 标签。
+                                        </video>
+                                    </p>
+                                    <p class="text-muted m-t-5">发帖时间： <i>{{post.pt_time}}</i><i>{{post.topic_post_time}}</i>
+                                    </p>
+                                </a>
+                                <p class="text-right trans pull-right" ng-show="post.lan_type!='简体中文'&&post.showTrans&&!post.is_trans" style="line-height:50px;padding:0;margin: -40px 0 0 0;"><a class="btn" ng-click="translate(post)" title="查看中文翻译"><img src="/static/assets/icon/translate1.svg" alt="翻译" style="width: 1.2em;" /></a></p>
+                                <p class="text-right trans pull-right" ng-show="post.lan_type!='简体中文'&&post.showTrans&&post.is_trans" style="line-height:50px;padding:0;margin: -40px 0 0 0;"><a class="btn" ng-click="translate(post)" title="查看原贴"><img src="/static/assets/icon/translate1.svg" alt="翻译" style="width: 1.2em;" /></a></p>
+                            </li>
+                        </ul>
+                        <div id="loading" class="text-center">
+                            <img src="/static/assets/icon/loading.gif" style="width: 30px"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

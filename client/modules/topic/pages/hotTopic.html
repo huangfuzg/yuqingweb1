@@ -30,8 +30,11 @@
                             <!-- <p class="lead" ng-if="item.summary == null">
                                     摘要： 2016年6.7，全国考生陆续开始高考。
                             </p> -->
-                            <p class="lead" style="overflow-y: hidden; height: 63px" data-mytitle="{{item.summary}}">
+                            <p class="lead" style="overflow-y: hidden; height: 63px" data-mytitle="{{item.summary}}" ng-if="item.summary.length>60">
                                     摘要： {{item.summary.slice(0,60)+'......'}}
+                            </p>
+                            <p class="lead" style="overflow-y: hidden; height: 63px" data-mytitle="{{item.summary}}" ng-if="item.summary.length<61">
+                                    摘要： {{item.summary.slice(0,60)}}
                             </p>
                         <!-- </div> -->
                     </div>

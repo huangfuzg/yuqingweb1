@@ -169,25 +169,26 @@ CQ.mainApp.zhishikuController
                 })
                 nodesl=nodes.length;
                 data[key].forEach((d,index)=>{
-                    for(var i=0; i<edge_count; i++)
-                    {
-                        var edge={};
-                        edge.source=nodes.length;
-                        var i2 = 0;
-                        // console.log(~~(Math.random()*data[key].length));
-                        while((i2=~~(Math.random()*data[key].length))>=4*Math.log(index+10));
-                        edge.target=nodesl+i2;
-                        edges.push(edge);
-                    }
-                    d.group=key;
-                    d.color=color_index;
-                    nodes.push(d);
                     data['user'].forEach(m=>{
                         if(m.user_id==d.user_id||m.user_name==d.user_id)
                         {
                             d.detail=m;
                         }
                     });
+                    for(var i=0; i<edge_count; i++)
+                    {
+                        var edge={};
+                        edge.source=nodes.length;
+                        var i2 = 0;
+                        // console.log(~~(Math.random()*data[key].length));
+                        while((i2=~~(Math.random()*data[key].length))>=4*Math.log(index+10)||nodes[i2]&&nodes[i2].detail);
+                        edge.target=nodesl+i2;
+                        edges.push(edge);
+                        // if()
+                    }
+                    d.group=key;
+                    d.color=color_index;
+                    nodes.push(d);
                 });
                 // nodesl+=data[key].length;
                 color_index+=1;
@@ -244,7 +245,7 @@ CQ.mainApp.zhishikuController
                 .data(force.links())  
                 .enter().append("line")  
                 .attr("class", "link");  
-            link.style("stroke",function(d){//  设置线的颜色    
+            link.style("stroke",function(d){//  设置线的颜色   
                 return color(d.source.color+1);    
             })    
             .style("stroke-width",function(d,i){//设置线的宽度    
@@ -404,8 +405,9 @@ CQ.mainApp.zhishikuController
                 .attr("r",function(d){  //设置圆点半径                        
                 return radius (d);                            
              })                                             
-            .style("fill",function(d){ //设置圆点的颜色            
-                return d.detail?"red":color(d.color);  
+            .style("fill",function(d){ //设置圆点的颜色 
+                return color(d.color);          
+                // return d.color=="red"?"red":color(d.color)=="#ff7f0e"?"green":color(d.color);  
             });    
             var text = node.append("text")  
                 .attr("x", 12)  

@@ -405,8 +405,15 @@ angular.module('settingservice',[])
                 label:"热点话题",
                 link: "#/hotTopic",
                 hasShow: true,
-                icon: "fa fa-bar-chart-o",
-                items: topicLists
+                icon: "fa fa-bullseye",
+                items: ""
+            },
+            {
+                label:"敏感话题",
+                link: "#/senTopic",
+                hasShow: true,
+                icon: "fa fa-warning",
+                items: ""
             },
             {
                 label:"实时监控",
