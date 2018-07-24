@@ -149,12 +149,15 @@ angular.module('commons',[])
             var errMessage = "";
             switch (error.status) {
                 case 500:
+                    // window.location.href = "error.html?error=500";
                     errMessage = "the server responded with a status of 500 (Server Error)";
                     break;
                 case 404:
+                    // window.location.href = "error.html?error=404";
                     errMessage = "未找到:" + error.config.url;
                     break;
                 default:
+                    // window.location.href = "error.html";
                     errMessage = error.statusText;
             }
         }
